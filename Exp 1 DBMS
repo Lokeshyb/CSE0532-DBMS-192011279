@@ -1,0 +1,79 @@
+mysql> create database yb;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use yb;
+Database changed
+mysql> create table faculty(facid int(10),facname varchar(10),dept varchar(10),salary int(10));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc faculty;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| facid   | int(10)     | YES  |     | NULL    |       |
+| facname | varchar(10) | YES  |     | NULL    |       |
+| dept    | varchar(10) | YES  |     | NULL    |       |
+| salary  | int(10)     | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> show tables;
++----------------+
+| Tables_in_ajay |
++----------------+
+| employe        |
+| faculty        |
++----------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into faculty values(1,"suresh","CSE",10000);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into faculty values(2,"kishore","ECE",20000);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into faculty values(3,"ganesh","EEE",30000);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into faculty values(4,"lokesh","IT",40000);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select*from faculty;
++-------+---------+------+--------+
+| facid | facname | dept | salary |
++-------+---------+------+--------+
+|     1 | ajay    | CSE  |  10000 |
+|     2 | obul    | ECE  |  20000 |
+|     3 | ganesh  | EEE  |  30000 |
+|     4 | lokesh  | IT   |  40000 |
++-------+---------+------+--------+
+4 rows in set (0.00 sec)
+
+mysql> drop table faculty;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create database b;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> show tables;
++----------------+
+| Tables_in_yb   |
++----------------+
+| employe        |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> alter table employe add address varchar(10);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employe;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| empid   | int(10)     | YES  |     | NULL    |       |
+| empname | varchar(10) | YES  |     | NULL    |       |
+| salary  | int(10)     | YES  |     | NULL    |       |
+| address | varchar(10) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
