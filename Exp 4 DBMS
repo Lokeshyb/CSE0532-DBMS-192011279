@@ -1,0 +1,42 @@
+mysql> use loki;
+Database changed
+
+mysql> select*from student;
++-------+---------+------+
+| Regno | Name    | Dept | 
++-------+---------+------+
+| 19201 | Gowtham | CSE  | 
+| 19202 | arun    | CSE  |
+| 19203 | Harish  | ECE  | 
+| 19204 | Harini  | ECE  | 
+| 19205 | Dhivya  | ECE  | 
++-----------+---------+---
+5 rows in set (0.00 sec)
+mysql> update mentees set Dept="BME" where Regno=19203;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from student;
++-------+---------+------+
+| Regno | Name    | Dept | 
++-------+---------+------+
+| 19201 | Gowtham | CSE  | 
+| 19202 | arun    | CSE  |
+| 19203 | Harish  | BME  | 
+| 19204 | Harini  | ECE  | 
+| 19205 | Dhivya  | ECE  | 
++-----------+---------+---
+5 rows in set (0.00 sec)
+mysql> delete from mentees where Name="Dhivya";
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select* from mentees;
++-------+---------+------+
+| Regno | Name    | Dept | 
++-------+---------+------+
+| 19201 | Gowtham | CSE  | 
+| 19202 | arun    | CSE  |
+| 19203 | Harish  | BME  | 
+| 19204 | Harini  | ECE  | 
++-----------+---------+---
+4 rows in set (0.00 sec)
