@@ -1,0 +1,142 @@
+mysql> use lokesh;
+Database changed
+mysql> show tables;
++------------------+
+| Tables_in_lokesh |
++------------------+
+| employe          |
+| faculty          |
+| student          |
+| studept          |
++------------------+
+4 rows in set (0.00 sec)
+
+mysql> select*from student;
+Empty set (0.00 sec)
+
+mysql> desc student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| rollno   | int(10)     | NO   | PRI | 0       |       |
+| studname | varchar(10) | YES  |     | NULL    |       |
+| dept     | varchar(10) | YES  |     | NULL    |       |
+| mobileno | int(10)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+
+mysql> insert into student values(192011,"nani","CSE",9780123478);
+ERROR 1264 (22003): Out of range value for column 'mobileno' at row 1
+mysql> insert into student values(192011,"nani","CSE",57894);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student values(192012,"loki","ECE",78932);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into student values(192013,"suri","ECE",89034);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into student values(192014,"kishore","ECE",56738);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values(192015,"ganesh","CSE",78945);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into student values(192016,"vinay","CSE",45678);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select*from student;
++--------+----------+------+----------+
+| rollno | studname | dept | mobileno |
++--------+----------+------+----------+
+| 192011 | nani     | CSE  |    57894 |
+| 192012 | loki     | ECE  |    78932 |
+| 192013 | suri     | ECE  |    89034 |
+| 192014 | kishore  | ECE  |    56738 |
+| 192015 | ganesh   | CSE  |    78945 |
+| 192016 | vinay    | CSE  |    45678 |
++--------+----------+------+----------+
+6 rows in set (0.00 sec)
+
+mysql> alter table student add age int(10);
+Query OK, 6 rows affected (0.03 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> update student set age=18 where rollno='192011';
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update student set age=19 where rollno='192012';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update student set age=17 where rollno='192013';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update student set age=20 where rollno='192014';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update student set age=18 where rollno='192015';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update student set age=19 where rollno='192016';
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from student;
++--------+----------+------+----------+------+
+| rollno | studname | dept | mobileno | age  |
++--------+----------+------+----------+------+
+| 192011 | nani     | CSE  |    57894 |   18 |
+| 192012 | loki     | ECE  |    78932 |   19 |
+| 192013 | suri     | ECE  |    89034 |   17 |
+| 192014 | kishore  | ECE  |    56738 |   20 |
+| 192015 | ganesh   | CSE  |    78945 |   18 |
+| 192016 | vinay    | CSE  |    45678 |   19 |
++--------+----------+------+----------+------+
+6 rows in set (0.00 sec)
+mysql> select*from student where age NOT BETWEEN 19 and 20;
++--------+----------+------+----------+------+
+| rollno | studname | dept | mobileno | age  |
++--------+----------+------+----------+------+
+| 192011 | nani     | CSE  |    57894 |   18 |
+| 192013 | suri     | ECE  |    89034 |   17 |
+| 192015 | ganesh   | CSE  |    78945 |   18 |
++--------+----------+------+----------+------+
+3 rows in set (0.03 sec)
+
+mysql> select sum(age) from student where dept='ECE';
++----------+
+| sum(age) |
++----------+
+|       56 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select avg(age) as Average from student;
++---------+
+| Average |
++---------+
+| 18.5000 |
++---------+
+1 row in set (0.01 sec)
+
+mysql> select min(age) as minimum from student;
++---------+
+| minimum |
++---------+
+|      17 |
++---------+
+1 row in set (0.01 sec)
+
+mysql> select max(age) as maximum from student;
++---------+
+| maximum |
++---------+
+|      20 |
++---------+
+1 row in set (0.00 sec)
+
