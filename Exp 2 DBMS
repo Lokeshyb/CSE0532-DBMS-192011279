@@ -1,0 +1,106 @@
+mysql> use lokesh;
+Database changed
+mysql> create table student(rollno int(10),studname varchar(10),dept varchar(10),mobileno int(10));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table faculty(facid int(10),facname varchar(10),dept varchar(10),salary int(10));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table studept(deptid int(10),deptname varchar(10),rollno int(10));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> create table employe(empid int(10),empname varchar(10),salary int(10));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_lokesh |
++------------------+
+| employe          |
+| faculty          |
+| student          |
+| studept          |
++------------------+
+4 rows in set (0.00 sec)
+
+mysql> desc student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| rollno   | int(10)     | YES  |     | NULL    |       |
+| studname | varchar(10) | YES  |     | NULL    |       |
+| dept     | varchar(10) | YES  |     | NULL    |       |
+| mobileno | int(10)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> desc studept;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| deptid   | int(10)     | YES  |     | NULL    |       |
+| deptname | varchar(10) | YES  |     | NULL    |       |
+| rollno   | int(10)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> alter table student add primary key(rollno);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| rollno   | int(10)     | NO   | PRI | 0       |       |
+| studname | varchar(10) | YES  |     | NULL    |       |
+| dept     | varchar(10) | YES  |     | NULL    |       |
+| mobileno | int(10)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> alter table studept add foreign key(rollno) reference student(rollno);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'reference student(rollno)' at line 1
+mysql> alter table studept add foreign key(rollno) references student(rollno);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc studept;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| deptid   | int(10)     | YES  |     | NULL    |       |
+| deptname | varchar(10) | YES  |     | NULL    |       |
+| rollno   | int(10)     | YES  | MUL | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> alter table student add unique(rollno);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| rollno   | int(10)     | NO   | PRI | 0       |       |
+| studname | varchar(10) | YES  |     | NULL    |       |
+| dept     | varchar(10) | YES  |     | NULL    |       |
+| mobileno | int(10)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> alter table student add check(dept==CSE);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '==CSE)' at line 1
+mysql> alter table student check(dept='CSE');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(dept='CSE')' at line 1
+mysql> alter table student add check(age>=15);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+
+
+
+
+
+
