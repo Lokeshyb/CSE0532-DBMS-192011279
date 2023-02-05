@@ -1,0 +1,83 @@
+mysql> select*from student;
++--------+----------+------+----------+------+
+| rollno | studname | dept | mobileno | age  |
++--------+----------+------+----------+------+
+| 192011 | nani     | CSE  |    57894 |   18 |
+| 192012 | loki     | ECE  |    78932 |   19 |
+| 192013 | suri     | ECE  |    89034 |   17 |
+| 192014 | kishore  | ECE  |    56738 |   20 |
+| 192015 | ganesh   | CSE  |    78945 |   18 |
+| 192016 | vinay    | CSE  |    45678 |   19 |
++--------+----------+------+----------+------+
+6 rows in set (0.00 sec)
+
+mysql> create table mdept(deptid int(10),deptname varchar(10),rollno int(10));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into mdept values(1,"CSE",192011);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into mdept values(2,"ECE",192012);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into mdept values(3,"EEE",192010);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select*from mdept;
++--------+----------+--------+
+| deptid | deptname | rollno |
++--------+----------+--------+
+|      1 | CSE      | 192011 |
+|      2 | ECE      | 192012 |
+|      3 | EEE      | 192010 |
++--------+----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select deptid,deptname from mdept,student where student.rollno=mdept.rollno;
++--------+----------+
+| deptid | deptname |
++--------+----------+
+|      1 | CSE      |
+|      2 | ECE      |
++--------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select studname,dept,deptid,deptname,rollno from mdept,student where student.rollno=mdept.rollno;
+ERROR 1052 (23000): Column 'rollno' in field list is ambiguous
+mysql> select studname,dept,deptid,deptname,rollno from mdept,student where student.rollno=mdept.rollno;
+ERROR 1052 (23000): Column 'rollno' in field list is ambiguous
+mysql> select studname,dept,deptid,deptname from mdept,student where student.rollno=mdept.rollno;
++----------+------+--------+----------+
+| studname | dept | deptid | deptname |
++----------+------+--------+----------+
+| nani     | CSE  |      1 | CSE      |
+| loki     | ECE  |      2 | ECE      |
++----------+------+--------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select rollno,deptname,studname,age from mdept left outer join student on mdept.rollno=student.rollno;
+ERROR 1052 (23000): Column 'rollno' in field list is ambiguous
+mysql> select deptname,studname,age from mdept left outer join student on mdept.rollno=student.rollno;
++----------+----------+------+
+| deptname | studname | age  |
++----------+----------+------+
+| CSE      | nani     |   18 |
+| ECE      | loki     |   19 |
+| EEE      | NULL     | NULL |
++----------+----------+------+
+3 rows in set (0.00 sec)
+
+mysql> select studname ,deptname,age from mdept right outer join student on mdept.rollno=student.rollno;
++----------+----------+------+
+| studname | deptname | age  |
++----------+----------+------+
+| nani     | CSE      |   18 |
+| loki     | ECE      |   19 |
+| suri     | NULL     |   17 |
+| kishore  | NULL     |   20 |
+| ganesh   | NULL     |   18 |
+| vinay    | NULL     |   19 |
++----------+----------+------+
+6 rows in set (0.00 sec)
+
+mysql>
