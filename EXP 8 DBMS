@@ -1,0 +1,53 @@
+mysql> select*from student;
++--------+----------+------+----------+------+
+| rollno | studname | dept | mobileno | age  |
++--------+----------+------+----------+------+
+| 192011 | nani     | CSE  |    57894 |   18 |
+| 192012 | loki     | ECE  |    78932 |   19 |
+| 192013 | suri     | ECE  |    89034 |   17 |
+| 192014 | kishore  | ECE  |    56738 |   20 |
+| 192015 | ganesh   | CSE  |    78945 |   18 |
+| 192016 | vinay    | CSE  |    45678 |   19 |
++--------+----------+------+----------+------+
+6 rows in set (0.00 sec)
+
+mysql> select rollno, studname from student where studname IN(select name where dept="ECE");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where dept="ECE")' at line 1
+mysql> select rollno,studname from student where studname IN(select name from student where dept="ECE");
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+mysql> select rollno,studname from student where studname IN(select studname from student where dept="ECE");
++--------+----------+
+| rollno | studname |
++--------+----------+
+| 192012 | loki     |
+| 192013 | suri     |
+| 192014 | kishore  |
++--------+----------+
+3 rows in set (0.00 sec)
+
+mysql> create table student2(rollno int(10),studname varchar(10));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into student2(rollno,studname) select rollno,studname from student where dept="CSE";
+Query OK, 3 rows affected (0.03 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select*from student2;
++--------+----------+
+| rollno | studname |
++--------+----------+
+| 192011 | nani     |
+| 192015 | ganesh   |
+| 192016 | vinay    |
++--------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select rollno,(select studname from student2 where rollno=192015)as studname,dept,mobileno,age from student where rollno=192015;
++--------+----------+------+----------+------+
+| rollno | studname | dept | mobileno | age  |
++--------+----------+------+----------+------+
+| 192015 | ganesh   | CSE  |    78945 |   18 |
++--------+----------+------+----------+------+
+1 row in set (0.03 sec)
+
+mysql>
